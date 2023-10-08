@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between",
     height: "100%",
   },
   grid: {
@@ -41,6 +40,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#82C1D0",
     padding: 6,
   },
+  boxInfo: {
+    padding: 6,
+    width: "60%",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.5)",
+  },
   heading: {
     flex: 1,
     flexGrow: 1,
@@ -54,7 +60,14 @@ const styles = StyleSheet.create({
     fontFamily: "BebasNeueRegular",
     color: "white",
     textAlign: "center",
+    marginTop: 32,
     fontSize: 34,
+  },
+  primaryText: {
+    textTransform: "uppercase",
+    fontFamily: "BebasNeueRegular",
+    color: "white",
+    textAlign: "center",
   },
   image: {
     flex: 1,
