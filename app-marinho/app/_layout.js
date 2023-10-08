@@ -7,7 +7,8 @@ SplashScreen.preventAutoHideAsync();
 
 const Layout = () => {
     const [fontsLoaded] = useFonts({
-        "BebasNeueRegular": require("../fonts/BebasNeue-Regular.ttf")
+        "BebasNeueRegular": require("../fonts/BebasNeue-Regular.ttf"),
+        "RobotoCondensed-Regular": require("../fonts/RobotoCondensed-Regular.ttf")
     });
 
     const onLayoutRootView = useCallback(async () => {

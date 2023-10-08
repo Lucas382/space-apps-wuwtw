@@ -5,6 +5,7 @@ import careIcone from "./imgs/icone_care.png";
 import mapaIcone from "./imgs/icone_mapa.png";
 import orcaIcone from "./imgs/icone_orca.png";
 import temperaturaIcone from "./imgs/icone_temperatura.png";
+import icone_muito_alto_risco from "./imgs/icone_muito_alto_risco.png";
 
 const BackgroundColors = {
   bright: "#06A0C4",
@@ -39,13 +40,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#82C1D0",
     padding: 6,
+    justifyContent: "center",
+    alignItems: "center"
   },
   boxInfo: {
-    padding: 6,
-    width: "60%",
+    paddingVertical: 36,
+    paddingHorizontal: 24,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.5)",
+    flexGrow: 0,
+    rowGap: 22
   },
   heading: {
     flex: 1,
@@ -69,17 +74,25 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+  secondaryText: {
+    fontFamily: "RobotoCondensed-Regular",
+    color: "white",
+    textAlign: "center",
+  },
   image: {
-    flex: 1,
     width: "100%",
     objectFit: "contain",
-    flexGrow: 1,
   },
-  imageContainer: {
-    flex: 1,
-    position: "relative",
-    width: "100%",
+  icon: {
+    objectFit: "contain",
   },
+  rowImage: {
+    flexDirection: "row",
+    flexGrow: 0,
+    gap: 16,
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
 
 const images = {
@@ -89,6 +102,7 @@ const images = {
   mapaIcone: mapaIcone,
   orcaIcone: orcaIcone,
   temperaturaIcone: temperaturaIcone,
+  icone_muito_alto_risco: icone_muito_alto_risco
 };
 
 export { BackgroundColors, styles, images };
