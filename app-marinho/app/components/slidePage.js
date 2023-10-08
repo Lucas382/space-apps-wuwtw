@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image } from "react-native";
+import { View, Text, SafeAreaView, Image, ScrollView } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../../assets/configs";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
+import { A } from "@expo/html-elements";
 
 const SlidePage = ({ title, data }) => {
   const router = useRouter();
@@ -31,15 +32,50 @@ const SlidePage = ({ title, data }) => {
         style={{ ...styles.container }}
         colors={[BackgroundColors.dark, BackgroundColors.bright]}
       >
-        <Text style={{ ...styles.headingText, marginTop: 24 }}>{title}</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={{ ...styles.headingText, marginTop: 24 }}>{title}</Text>
 
-        <View style={{ ...styles.slideBox }}>
-            <Text style={{...styles.secondaryText, fontSize: 20}}>{data.texts[slide]}</Text>
-            <View style={{width: "100%", padding: 16, borderColor: "white", borderWidth: 1, marginTop: 16, marginTop: 48, flexDirection: "row", borderRadius: 100}}>
-                {slide < data.texts.length}
-                <TouchableOpacity><Text style={{...styles.secondaryText, fontSize: 20}}>Next</Text></TouchableOpacity>
+          <View style={{ ...styles.slideBox }}>
+            <Text style={{ ...styles.secondaryText, fontSize: 20 }}>
+              {data.texts[slide]}
+            </Text>
+            {slide > 0 && (
+              <TouchableOpacity onPress={() => setSlide(slide - 1)}>
+                <View style={styles.slideButton}>
+                  {slide < data.texts.length}
+
+                  <Text style={{ ...styles.secondaryText, fontSize: 20 }}>
+                    Back
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            {slide < data.texts.length - 1 && (
+              <TouchableOpacity onPress={() => setSlide(slide + 1)}>
+                <View style={styles.slideButton}>
+                  {slide < data.texts.length}
+
+                  <Text style={{ ...styles.secondaryText, fontSize: 20 }}>
+                    Next
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          </View>
+          {slide == data.texts.length - 1 && (
+            <View style={{ padding: 12 }}>
+              <Text style={{ ...styles.secondaryText, fontSize: 16 }}>
+                Mais informações em:{" "}
+                <A
+                  href={data.source}
+                  style={{ textDecorationLine: "underline" }}
+                >
+                  {data.source}
+                </A>
+              </Text>
             </View>
-        </View>
+          )}
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );

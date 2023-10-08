@@ -113,7 +113,19 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(127, 193, 208, 0.49)",
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
+  slideButton: {
+    width: "100%",
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderColor: "white",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderWidth: 1,
+    marginTop: 16,
+    marginTop: 48,
+    flexDirection: "row",
+    borderRadius: 100,
+  },
 });
 
 const images = {
@@ -128,14 +140,13 @@ const images = {
   grafico_qualidade_de_água_muito_ruim: grafico_qualidade_de_água_muito_ruim,
   sol: sol,
   mar_icone: mar_icone,
-  moeda_icone: moeda_icone
-
+  moeda_icone: moeda_icone,
 };
 
 const forFade = ({ current }) => ({
-    cardStyle: {
-      opacity: current.progress,
-    },
-  });
+  cardStyle: {
+    opacity: current.progress,
+  },
+});
 
 export { BackgroundColors, styles, images, forFade };
