@@ -44,7 +44,13 @@ const SlidePage = ({ title, data }) => {
                 <View style={styles.slideButton}>
                   {slide < data.texts.length}
 
-                  <Text style={{ ...styles.secondaryText, fontSize: 20 }}>
+                  <Text
+                    style={{
+                      ...styles.secondaryText,
+                      fontSize: 20,
+                      textAlign: "justify",
+                    }}
+                  >
                     Back
                   </Text>
                 </View>
