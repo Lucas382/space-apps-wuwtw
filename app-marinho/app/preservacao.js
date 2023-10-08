@@ -1,34 +1,15 @@
-import { View, Text, SafeAreaView, Image } from "react-native";
-import { Stack, useRouter, withLayoutContext } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
-import { BackgroundColors, styles, images, forFade } from "../assets/configs";
-import { ScrollView } from "react-native-gesture-handler";
+import { images } from "../assets/configs";
+import MenuPage from "./components/menuPage";
 
 const Preservacao = () => {
-  const router = useRouter();
+  const routes = [
+    { route: "/estabilizacao-climatica", img: images.sol },
+    { route: "/protecao-oceanica", img: images.mar_icone },
+    { route: "/economia", img: images.moeda_icone },
+    { route: "/vida-marinha", img: images.sol },
+  ];
 
-  return (
-    <SafeAreaView style={{ ...styles.page, flex: 1 }}>
-      <Stack.Screen
-        options={{
-          headerShadowVisible: false,
-          headerTitle: "",
-          headerBackVisible: true,
-          headerStyle: { backgroundColor: BackgroundColors.dark },
-          headerTintColor: "#fff",
-          cardStyleInterpolator: forFade
-        }}
-      />
-      <LinearGradient
-        style={{ ...styles.container }}
-        colors={[BackgroundColors.dark, BackgroundColors.bright]}
-      >
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{ ...styles.headingText }}>Preservação</Text>
-        </ScrollView>
-      </LinearGradient>
-    </SafeAreaView>
-  );
+  return <MenuPage title={"Preservação Ambiental"} routes={routes} />;
 };
 
 export default Preservacao;

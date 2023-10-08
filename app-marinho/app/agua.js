@@ -14,8 +14,8 @@ const Agua = () => {
           headerShadowVisible: false,
           headerTitle: "",
           headerBackVisible: true,
-          headerStyle: { backgroundColor: BackgroundColors.dark },
           headerTintColor: "#fff",
+          headerStyle: { backgroundColor: BackgroundColors.dark },
           cardStyleInterpolator: forFade
         }}
       />

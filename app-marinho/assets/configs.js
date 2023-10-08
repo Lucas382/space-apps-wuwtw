@@ -8,6 +8,9 @@ import temperaturaIcone from "./imgs/icone_temperatura.png";
 import icone_muito_alto_risco from "./imgs/icone_muito_alto_risco.png";
 import icone_agua_tela_qualidade_de_agua from "./imgs/icone_agua_tela_qualidade_de_agua.png";
 import grafico_qualidade_de_água_muito_ruim from "./imgs/grafico_qualidade_de_água_muito_ruim.png";
+import sol from "./imgs/sol.png";
+import moeda_icone from "./imgs/moeda_icone.png";
+import mar_icone from "./imgs/mar_icone.png";
 
 const BackgroundColors = {
   bright: "#06A0C4",
@@ -101,6 +104,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     margin: 4,
   },
+  slideBox: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.5)",
+    padding: 24,
+    margin: 32,
+    backgroundColor: "rgba(127, 193, 208, 0.49)",
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
 
 const images = {
@@ -112,7 +125,11 @@ const images = {
   temperaturaIcone: temperaturaIcone,
   icone_muito_alto_risco: icone_muito_alto_risco,
   icone_agua_tela_qualidade_de_agua: icone_agua_tela_qualidade_de_agua,
-  grafico_qualidade_de_água_muito_ruim: grafico_qualidade_de_água_muito_ruim
+  grafico_qualidade_de_água_muito_ruim: grafico_qualidade_de_água_muito_ruim,
+  sol: sol,
+  mar_icone: mar_icone,
+  moeda_icone: moeda_icone
+
 };
 
 const forFade = ({ current }) => ({

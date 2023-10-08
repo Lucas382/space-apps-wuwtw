@@ -16,14 +16,14 @@ const MenuPage = ({ title, routes }) => {
     router.push(route);
   };
 
-  console.log(routes);
-
   return (
     <SafeAreaView style={{ ...styles.page, flex: 1 }}>
       <Stack.Screen
         options={{
           headerShadowVisible: false,
           headerTitle: "",
+          headerBackVisible: true,
+          headerTintColor: "#fff",
           headerStyle: { backgroundColor: BackgroundColors.dark },
           cardStyleInterpolator: forFade,
         }}
