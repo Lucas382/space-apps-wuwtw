@@ -48,23 +48,21 @@ const Agua = () => {
           </View>
 
           <View style={{ ...styles.boxWrapper }}>
-            <View style={{ ...styles.boxInfo }}>
+            <View style={{ ...styles.boxInfo, rowGap: 0, paddingBottom: 0 }}>
               <View
                 style={{ ...styles.rowImage, justifyContent: "space-between" }}
               >
-                <Text style={{ ...styles.primaryText, fontSize: 30 }}>
+                <Text style={{ ...styles.primaryText, fontSize: 30, color: "red" }}>
                   Índice de Água
                 </Text>
-
                 <Image
                   source={images.icone_agua_tela_qualidade_de_agua}
                   style={{ ...styles.icon }}
                 />
               </View>
-
               <Image
                 source={images.grafico_qualidade_de_água_muito_ruim}
-                style={{ ...styles.image }}
+                style={{ ...styles.image, marginVertical: -8 }}
               />
             </View>
           </View>
