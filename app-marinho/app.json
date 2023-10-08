@@ -13,6 +13,7 @@
       "image": "./assets/imgs/splash.png",
       "backgroundColor": "#040A2D",
       "resizeMode": "cover"
-    }
+    },
+    "backgroundColor": "#040A2D" 
   }
 }

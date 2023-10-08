@@ -1,7 +1,8 @@
 import { View, Text, SafeAreaView, Image } from "react-native";
 import { Stack, useRouter, withLayoutContext } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-import { BackgroundColors, styles, images } from "../assets/configs";
+import { BackgroundColors, styles, images, forFade } from "../assets/configs";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Agua = () => {
   const router = useRouter();
@@ -15,55 +16,67 @@ const Agua = () => {
           headerBackVisible: true,
           headerStyle: { backgroundColor: BackgroundColors.dark },
           headerTintColor: "#fff",
+          cardStyleInterpolator: forFade
         }}
       />
       <LinearGradient
         style={{ ...styles.container }}
         colors={[BackgroundColors.dark, BackgroundColors.bright]}
       >
-        <Text style={{ ...styles.headingText }}>qualidade da água local</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={{ ...styles.headingText }}>qualidade da água local</Text>
 
-        <View style={{ gap: 32, padding: 12, marginTop: 48 }}>
-          <View style={{ ...styles.boxInfo }}>
-            <Text style={{ ...styles.primaryText, fontSize: 30 }}>
-              Nível de Contaminação
-            </Text>
-            <View style={{...styles.rowImage}}>
-              <Image
-                source={images.icone_muito_alto_risco}
-                style={{ ...styles.icon }}
-              />
-              <Text style={{ ...styles.primaryText, fontSize: 22 }}>
-                Muito Alto!
+          <View style={{ ...styles.boxWrapper, marginTop: 48 }}>
+            <View style={{ ...styles.boxInfo }}>
+              <Text style={{ ...styles.primaryText, fontSize: 30 }}>
+                Nível de Contaminação
+              </Text>
+              <View style={{ ...styles.rowImage }}>
+                <Image
+                  source={images.icone_muito_alto_risco}
+                  style={{ ...styles.icon }}
+                />
+                <Text style={{ ...styles.primaryText, fontSize: 22 }}>
+                  Muito Alto!
+                </Text>
+              </View>
+              <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
+                Substâncias com os maiores riscos de gerar doenças crônicas,
+                como câncer
               </Text>
             </View>
-            <Text style={{ ...styles.secondaryText, fontSize: 16 }}>
-              Substâncias com os maiores riscos de gerar doenças crônicas, como
-              câncer
-            </Text>
           </View>
-        </View>
 
-        <View style={{ gap: 32, padding: 12 }}>
-          <View style={{ ...styles.boxInfo }}>
-            <Text style={{ ...styles.primaryText, fontSize: 30 }}>
-              Substâncias Encontradas
-            </Text>
-            <View style={{...styles.rowImage}}>
+          <View style={{ ...styles.boxWrapper }}>
+            <View style={{ ...styles.boxInfo }}>
+              <View
+                style={{ ...styles.rowImage, justifyContent: "space-between" }}
+              >
+                <Text style={{ ...styles.primaryText, fontSize: 30 }}>
+                  Índice de Água
+                </Text>
+
+                <Image
+                  source={images.icone_agua_tela_qualidade_de_agua}
+                  style={{ ...styles.icon }}
+                />
+              </View>
+
               <Image
-                source={images.icone_muito_alto_risco}
-                style={{ ...styles.icon }}
+                source={images.grafico_qualidade_de_água_muito_ruim}
+                style={{ ...styles.image }}
               />
-              <Text style={{ ...styles.primaryText, fontSize: 22 }}>
-                Muito Alto!
+            </View>
+          </View>
+
+          <View style={{ ...styles.boxWrapper }}>
+            <View style={{ ...styles.boxInfo }}>
+              <Text style={{ ...styles.primaryText, fontSize: 30 }}>
+                Substâncias Encontradas
               </Text>
             </View>
-            <Text style={{ ...styles.secondaryText, fontSize: 16 }}>
-              Substâncias com os maiores riscos de gerar doenças crônicas, como
-              câncer
-            </Text>
           </View>
-        </View>
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );

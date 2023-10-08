@@ -6,6 +6,8 @@ import mapaIcone from "./imgs/icone_mapa.png";
 import orcaIcone from "./imgs/icone_orca.png";
 import temperaturaIcone from "./imgs/icone_temperatura.png";
 import icone_muito_alto_risco from "./imgs/icone_muito_alto_risco.png";
+import icone_agua_tela_qualidade_de_agua from "./imgs/icone_agua_tela_qualidade_de_agua.png";
+import grafico_qualidade_de_água_muito_ruim from "./imgs/grafico_qualidade_de_água_muito_ruim.png";
 
 const BackgroundColors = {
   bright: "#06A0C4",
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#82C1D0",
     padding: 6,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   boxInfo: {
     paddingVertical: 36,
@@ -49,8 +51,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.5)",
-    flexGrow: 0,
-    rowGap: 22
+    rowGap: 22,
+    width: "100%",
   },
   heading: {
     flex: 1,
@@ -91,8 +93,14 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     gap: 16,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
+  boxWrapper: {
+    gap: 32,
+    padding: 12,
+    flexDirection: "row",
+    margin: 4,
+  },
 });
 
 const images = {
@@ -102,7 +110,15 @@ const images = {
   mapaIcone: mapaIcone,
   orcaIcone: orcaIcone,
   temperaturaIcone: temperaturaIcone,
-  icone_muito_alto_risco: icone_muito_alto_risco
+  icone_muito_alto_risco: icone_muito_alto_risco,
+  icone_agua_tela_qualidade_de_agua: icone_agua_tela_qualidade_de_agua,
+  grafico_qualidade_de_água_muito_ruim: grafico_qualidade_de_água_muito_ruim
 };
 
-export { BackgroundColors, styles, images };
+const forFade = ({ current }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
+
+export { BackgroundColors, styles, images, forFade };
