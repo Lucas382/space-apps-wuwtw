@@ -6,9 +6,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import useMeteoFetch from "../helpers/useMeteoFetch";
 
 const Clima = () => {
-  const { data, isLoading, refetch } = useMeteoFetch();
+  //const { data, isLoading, refetch } = useMeteoFetch();
 
-  console.log("Data:", data);
+  //console.log("Data:", data);
 
   if (isLoading) {
     <SafeAreaView style={{ ...styles.page, flex: 1 }}>

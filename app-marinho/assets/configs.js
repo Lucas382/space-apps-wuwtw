@@ -8,9 +8,10 @@ import temperaturaIcone from "./imgs/icone_temperatura.png";
 import icone_muito_alto_risco from "./imgs/icone_muito_alto_risco.png";
 import icone_agua_tela_qualidade_de_agua from "./imgs/icone_agua_tela_qualidade_de_agua.png";
 import grafico_qualidade_de_água_muito_ruim from "./imgs/grafico_qualidade_de_água_muito_ruim.png";
-import sol from "./imgs/sol.png";
+import terra_icone from "./imgs/terra_icone.png";
 import moeda_icone from "./imgs/moeda_icone.png";
 import mar_icone from "./imgs/mar_icone.png";
+import peixe_icone from "./imgs/peixe_icone.png";
 import chuva from "./imgs/chuva.png";
 import neve from "./imgs/neve.png";
 import nublado from "./imgs/nublado.png";
@@ -152,9 +153,10 @@ const images = {
   icone_muito_alto_risco: icone_muito_alto_risco,
   icone_agua_tela_qualidade_de_agua: icone_agua_tela_qualidade_de_agua,
   grafico_qualidade_de_água_muito_ruim: grafico_qualidade_de_água_muito_ruim,
-  sol: sol,
-  mar_icone: mar_icone,
+  terra_icone: terra_icone,
   moeda_icone: moeda_icone,
+  mar_icone: mar_icone,
+  peixe_icone: peixe_icone,
   chuva: chuva,
   neve: neve,
   nublado: nublado,
