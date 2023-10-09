@@ -10,33 +10,33 @@ const Clima = () => {
 
   //console.log("Data:", data);
 
-  if (isLoading) {
-    <SafeAreaView style={{ ...styles.page, flex: 1 }}>
-      <Stack.Screen
-        options={{
-          headerShadowVisible: false,
-          headerTitle: "",
-          headerBackVisible: true,
-          headerStyle: { backgroundColor: BackgroundColors.dark },
-          headerTintColor: "#fff",
-          cardStyleInterpolator: forFade,
-        }}
-      />
-      <LinearGradient
-        style={{ ...styles.container }}
-        colors={[BackgroundColors.dark, BackgroundColors.bright]}
-      >
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ paddingTop: 16 }}
-        >
-          <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
-            Loading...
-          </Text>
-        </ScrollView>
-      </LinearGradient>
-    </SafeAreaView>;
-  }
+  // if (isLoading) {
+  //   <SafeAreaView style={{ ...styles.page, flex: 1 }}>
+  //     <Stack.Screen
+  //       options={{
+  //         headerShadowVisible: false,
+  //         headerTitle: "",
+  //         headerBackVisible: true,
+  //         headerStyle: { backgroundColor: BackgroundColors.dark },
+  //         headerTintColor: "#fff",
+  //         cardStyleInterpolator: forFade,
+  //       }}
+  //     />
+  //     <LinearGradient
+  //       style={{ ...styles.container }}
+  //       colors={[BackgroundColors.dark, BackgroundColors.bright]}
+  //     >
+  //       <ScrollView
+  //         showsVerticalScrollIndicator={false}
+  //         style={{ paddingTop: 16 }}
+  //       >
+  //         <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
+  //           Loading...
+  //         </Text>
+  //       </ScrollView>
+  //     </LinearGradient>
+  //   </SafeAreaView>;
+  // }
 
   return (
     <SafeAreaView style={{ ...styles.page, flex: 1 }}>
