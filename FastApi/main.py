@@ -1,16 +1,14 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from typing import Annotated
 import uvicorn
+from starlette.responses import JSONResponse
 
 from FastApi.src.infrastructure.data.db_context.postgre_sql_context import engine, SessionLocal
-from FastApi.src.application.api_models.question_choices_api_models import QuestionBase
-from FastApi.src.domain.models import question_choices_repository_models as models
 
 import pandas as pd
 
 app = FastAPI()
-models.Base.metadata.create_all(bind=engine)
 
 
 def get_db():
@@ -24,9 +22,27 @@ def get_db():
 db_dependency = Annotated[Session, Depends(get_db)]
 
 
+def remove_left_spaces(df):
+    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+    return df
+
+@app.get("/animais_marinhos/")
+async def get_sea_animals():
+    sea_animals_path = 'FastApi/src/infrastructure/data/repositories/animais_marinhos.xlsx'
+
+    df_sea_animals = pd.read_excel(sea_animals_path)
+    df_sea_animals = df_sea_animals.fillna('')
+
+    df_sea_animals = remove_left_spaces(df_sea_animals)
+
+    sea_animals_data = df_sea_animals.to_dict(orient='records')
+
+    return JSONResponse(content=sea_animals_data)
+
+
 @app.get("/municipios/{nome_municipio}")
 async def get_otto_code_from_name(name_of_city: str):
-    file_path_city = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4_municipios.xlsx'
+    file_path_city = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4_municipios_obsolete.xlsx'
     file_path_river_basin = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4.xlsx'
 
     df_city = pd.read_excel(file_path_city)
@@ -57,7 +73,7 @@ async def get_otto_code_from_name(name_of_city: str):
         if cod and int(cod) in list_cod_otto:
             print(int(cod) , list_cod_otto)
             result_objects.append({
-                'código Otto': int(cod) ,
+                'código Otto': int(cod),
                 'nome da bacia hidrográfica': watersheds_name[i],
                 'nome do curso principal': main_course[i],
                 'principais afluentes': main_tributary_rivers[i],
@@ -66,35 +82,6 @@ async def get_otto_code_from_name(name_of_city: str):
             })
 
     return result_objects
-
-
-@app.get("/questions/{question_id}")
-async def read_question(question_id: int, db: db_dependency):
-    result = db.query(models.Questions).filter(models.Questions.id == question_id).first()
-    if not result:
-        raise HTTPException(status_code=404, detail='Question not found')
-    return result
-
-
-@app.get('/choices/{question_id}')
-async def read_choices(question_id: int, db:db_dependency):
-    result = db.query(models.Choices).filter(models.Choices.question_id == question_id).all()
-    if not result:
-        raise HTTPException(status_code=404, detail='Choices not found')
-    return result
-
-
-@app.post("/questions/")
-async def create_questions(question: QuestionBase, db: db_dependency):
-    db_question = models.Questions(question_text=question.question_text)
-    db.add(db_question)
-    db.commit()
-    db.refresh(db_question)
-
-    for choice in question.choices:
-        db_choice = models.Choices(choice_text=choice.choice_text, is_correct=choice.is_correct, question_id=db_question.id)
-        db.add(db_choice)
-    db.commit()
 
 
 if __name__ == "__main__":
