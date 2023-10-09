@@ -16,15 +16,39 @@ const Clima = () => {
           headerBackVisible: true,
           headerStyle: { backgroundColor: BackgroundColors.dark },
           headerTintColor: "#fff",
-          cardStyleInterpolator: forFade
+          cardStyleInterpolator: forFade,
         }}
       />
       <LinearGradient
         style={{ ...styles.container }}
         colors={[BackgroundColors.dark, BackgroundColors.bright]}
       >
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{ ...styles.headingText }}>Clima</Text>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ paddingTop: 16 }}
+        >
+          <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
+            Hoje, 08, Outubro, 2023
+          </Text>
+          <Text style={{ ...styles.headingText, marginTop: 12, fontSize: 48 }}>
+            Brasil
+          </Text>
+          <Text
+            style={{ ...styles.secondaryText, fontSize: 18, marginTop: 12 }}
+          >
+            Colombo
+          </Text>
+
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <View style={{ ...styles.climaBox }}>
+              <Image source={images.nublado} style={{ ...styles.image }} />
+              <Text
+                style={{ ...styles.headingText, fontSize: 72, marginTop: 8 }}
+              >
+                10°C
+              </Text>
+            </View>
+          </View>
         </ScrollView>
       </LinearGradient>
     </SafeAreaView>

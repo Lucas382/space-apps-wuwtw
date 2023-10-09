@@ -11,6 +11,10 @@ import grafico_qualidade_de_Ã¡gua_muito_ruim from "./imgs/grafico_qualidade_de_Ã
 import sol from "./imgs/sol.png";
 import moeda_icone from "./imgs/moeda_icone.png";
 import mar_icone from "./imgs/mar_icone.png";
+import chuva from "./imgs/chuva.png";
+import neve from "./imgs/neve.png";
+import nublado from "./imgs/nublado.png";
+import raios from "./imgs/raios.png";
 
 const BackgroundColors = {
   bright: "#06A0C4",
@@ -127,6 +131,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 100,
   },
+  climaBox: {
+    backgroundColor: "#60D1EA",
+    marginTop: 64,
+    aspectRatio: 1,
+    paddingHorizontal: 18,
+    paddingVertical: 22,
+    borderRadius: 1000,
+  },
 });
 
 const images = {
@@ -142,6 +154,10 @@ const images = {
   sol: sol,
   mar_icone: mar_icone,
   moeda_icone: moeda_icone,
+  chuva: chuva,
+  neve: neve,
+  nublado: nublado,
+  raios: raios,
 };
 
 const forFade = ({ current }) => ({
