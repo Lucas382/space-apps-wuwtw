@@ -3,9 +3,40 @@ import { Stack, useRouter, withLayoutContext } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { BackgroundColors, styles, images, forFade } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
+import useMeteoFetch from "../helpers/useMeteoFetch";
 
 const Clima = () => {
-  const router = useRouter();
+  const { data, isLoading, refetch } = useMeteoFetch();
+
+  console.log("Data:", data);
+
+  if (isLoading) {
+    <SafeAreaView style={{ ...styles.page, flex: 1 }}>
+      <Stack.Screen
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          headerBackVisible: true,
+          headerStyle: { backgroundColor: BackgroundColors.dark },
+          headerTintColor: "#fff",
+          cardStyleInterpolator: forFade,
+        }}
+      />
+      <LinearGradient
+        style={{ ...styles.container }}
+        colors={[BackgroundColors.dark, BackgroundColors.bright]}
+      >
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ paddingTop: 16 }}
+        >
+          <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
+            Loading...
+          </Text>
+        </ScrollView>
+      </LinearGradient>
+    </SafeAreaView>;
+  }
 
   return (
     <SafeAreaView style={{ ...styles.page, flex: 1 }}>

@@ -15,6 +15,7 @@ import chuva from "./imgs/chuva.png";
 import neve from "./imgs/neve.png";
 import nublado from "./imgs/nublado.png";
 import raios from "./imgs/raios.png";
+import saurida_brasiliensis from "./imgs/saurida_brasiliensis.jpg";
 
 const BackgroundColors = {
   bright: "#06A0C4",
@@ -160,10 +161,27 @@ const images = {
   raios: raios,
 };
 
+const animais = [
+  {
+    nome: "Saurida brasiliensis",
+    texto:
+      "Esta espécie  é amplamente distribuída, comum e abundante localmente onde ocorre em fundos moles da plataforma continental. Não há grandes ameaças conhecidas, portanto, está listado como de menor preocupação.",
+    oceano: "Atlântico",
+    rota: "No Atlântico oriental, ocorre desde a Mauritânia até Angola, incluindo as ilhas de Cabo Verde, a ilha de Ascensão e as ilhas de São Tomé e Príncipe. A distribuição do Atlântico oriental provavelmente representa uma espécie diferente. Sua faixa de profundidade é de 10 a 450 m.",
+    habitat:
+      "Esta espécie demersal é encontrada em profundidades entre 10-450 m em fundos lamacentos sobre a plataforma continental (McEachran e Fechhelm 1998, Polanco 2006). Alimenta-se de peixes e seu comprimento máximo é de 11,5 cm (Anderson et al. 1966), mas comumente atinge entre 5 e 8 cm SL (Russell no prelo).",
+    populacao:
+      "Esta espécie é comum e abundante localmente; existem 523 registros nominais na Fishnet2, com até 227 indivíduos em um único lote. Foi o terceiro peixe mais abundante capturado em redes comerciais de camarão no sistema da Lagoa Alvarado, no México, durante as estações norte, seca e chuvosa (Pelaez-Rodriguez et al. 2005 ). Foi a quinta espécie larval mais abundante em três habitats de recife diferentes no Caribe do Panamá (Lemberget et al. 2009). A informação populacional é limitada para esta espécie no Atlântico Centro-Leste; no entanto, existem 52 registros de museus desta espécie com contagens de lotes de até 34 indivíduos (acessado através do portal FishNet2, ww.fishnet2.net, agosto de 2015).",
+    ameacas:
+      "Não parece haver nenhuma ameaça substancial a esta espécie. Poderia ser potencialmente afectado pela sua ocorrência como captura acessória de arrasto de camarão em partes da sua área de distribuição.",
+    img: saurida_brasiliensis,
+  },
+];
+
 const forFade = ({ current }) => ({
   cardStyle: {
     opacity: current.progress,
   },
 });
 
-export { BackgroundColors, styles, images, forFade };
+export { BackgroundColors, styles, images, forFade, animais };

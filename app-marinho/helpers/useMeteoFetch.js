@@ -1,21 +1,37 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = (url, deps) => {
+const useMeteoFetch = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const options = {
+  const [options, setOptions] = useState({
     method: "GET",
-    url: url,
+    url: "",
     headers: {},
-  };
+  });
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      console.log(location);
+      setOptions({
+        method: "GET",
+        url: `https://spaceenginners_santos_gustavo:FB5if2vdZ7@api.meteomatics.com/${currentTime}/t_0m:C/${location.latitude},${location.longitude}/json?model=mix`,
+        headers: {},
+      });
+    })();
+  }, []);
 
   const fetchData = async () => {
     setIsLoading(true);
-    console.log(deps);
-    if (!deps) return;
+    if (!!options.url) return;
 
     try {
       console.log(options);
@@ -34,7 +50,7 @@ const useFetch = (url, deps) => {
 
   useEffect(() => {
     fetchData();
-  }, [deps]);
+  }, []);
 
   const refetch = () => {
     setIsLoading(true);
@@ -44,4 +60,4 @@ const useFetch = (url, deps) => {
   return { data, isLoading, error, refetch };
 };
 
-export default useFetch;
+export default useMeteoFetch;

@@ -3,8 +3,8 @@ import { Stack, useRouter, withLayoutContext } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { BackgroundColors, styles, images, forFade } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
-import React, { useState, useEffect } from 'react';
-import * as Location from 'expo-location';
+import React, { useState, useEffect } from "react";
+import * as Location from "expo-location";
 
 const Mapa = () => {
   const router = useRouter();
@@ -13,10 +13,9 @@ const Mapa = () => {
 
   useEffect(() => {
     (async () => {
-      
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
         return;
       }
 
@@ -25,7 +24,7 @@ const Mapa = () => {
     })();
   }, []);
 
-  let text = 'Waiting..';
+  let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
@@ -41,7 +40,7 @@ const Mapa = () => {
           headerBackVisible: true,
           headerStyle: { backgroundColor: BackgroundColors.dark },
           headerTintColor: "#fff",
-          cardStyleInterpolator: forFade
+          cardStyleInterpolator: forFade,
         }}
       />
       <LinearGradient
