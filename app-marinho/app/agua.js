@@ -16,7 +16,7 @@ const Agua = () => {
           headerBackVisible: true,
           headerTintColor: "#fff",
           headerStyle: { backgroundColor: BackgroundColors.dark },
-          cardStyleInterpolator: forFade
+          cardStyleInterpolator: forFade,
         }}
       />
       <LinearGradient
@@ -52,7 +52,9 @@ const Agua = () => {
               <View
                 style={{ ...styles.rowImage, justifyContent: "space-between" }}
               >
-                <Text style={{ ...styles.primaryText, fontSize: 30, color: "red" }}>
+                <Text
+                  style={{ ...styles.primaryText, fontSize: 30, color: "red" }}
+                >
                   Índice de Água
                 </Text>
                 <Image

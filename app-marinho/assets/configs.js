@@ -142,6 +142,12 @@ const styles = StyleSheet.create({
     paddingVertical: 22,
     borderRadius: 1000,
   },
+  map: {
+    width: "100%",
+    maxWidth: 300,
+    height: 400,
+    margin: 36,
+  },
 });
 
 const images = {
