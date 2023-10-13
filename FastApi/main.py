@@ -1,14 +1,18 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
+from fastapi import FastAPI, HTTPException,Depends
 from typing import Annotated
-import uvicorn
+from sqlalchemy.orm import Session
+from fastapi.responses import RedirectResponse
 from starlette.responses import JSONResponse
-
-from FastApi.src.infrastructure.data.db_context.postgre_sql_context import engine, SessionLocal
 
 import pandas as pd
 
+from FastApi.src.application.api_models.basin_city_api_model import BasinCityModel
+import FastApi.src.domain.models.basin_cities_repository_model as models
+from FastApi.src.infrastructure.data.db_context.sqlite_sql_context import engine, SessionLocal
+
 app = FastAPI()
+
+models.Base.metadata.create_all(bind=engine)
 
 
 def get_db():
@@ -26,6 +30,20 @@ def remove_left_spaces(df):
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     return df
 
+
+@app.get('/')
+async def root():
+    return RedirectResponse("/docs")
+
+
+@app.get('/controle_semestral/')
+async def get_city_by_name(name_of_city: str, db: db_dependency):
+    result = db.query(models.BasinCityRepositoryModel).filter(models.BasinCityRepositoryModel.municipio == name_of_city).first()
+    if not result:
+        raise HTTPException(status_code=404, detail='City not found! ')
+    return result
+
+
 @app.get("/animais_marinhos/")
 async def get_sea_animals():
     sea_animals_path = 'FastApi/src/infrastructure/data/repositories/animais_marinhos.xlsx'
@@ -40,9 +58,9 @@ async def get_sea_animals():
     return JSONResponse(content=sea_animals_data)
 
 
-@app.get("/municipios/{nome_municipio}")
-async def get_otto_code_from_name(name_of_city: str):
-    file_path_city = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4_municipios_obsolete.xlsx'
+@app.get("/municipios/")
+async def get_basin_data_from_city_name(name_of_city: str):
+    file_path_city = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4_municipios.xlsx'
     file_path_river_basin = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4.xlsx'
 
     df_city = pd.read_excel(file_path_city)
@@ -71,7 +89,7 @@ async def get_otto_code_from_name(name_of_city: str):
 
     for i, cod in enumerate(fk_otto_code):
         if cod and int(cod) in list_cod_otto:
-            print(int(cod) , list_cod_otto)
+            print(int(cod), list_cod_otto)
             result_objects.append({
                 'código Otto': int(cod),
                 'nome da bacia hidrográfica': watersheds_name[i],
@@ -84,5 +102,3 @@ async def get_otto_code_from_name(name_of_city: str):
     return result_objects
 
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
