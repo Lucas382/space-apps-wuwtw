@@ -5,38 +5,65 @@ import { BackgroundColors, styles, images, forFade } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
 import useMeteoFetch from "../helpers/useMeteoFetch";
 
+const getCurrentDay = () => {
+  const now = new Date();
+
+  const monthNames = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
+
+  // Get the current date in the desired format
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return [year, monthNames[month], day];
+};
+
 const Clima = () => {
-  //const { data, isLoading, refetch } = useMeteoFetch();
+  const { data, isLoading, refetch } = useMeteoFetch();
+  const [year, month, day] = getCurrentDay();
 
-  //console.log("Data:", data);
+  console.log("Data:", data);
 
-  // if (isLoading) {
-  //   <SafeAreaView style={{ ...styles.page, flex: 1 }}>
-  //     <Stack.Screen
-  //       options={{
-  //         headerShadowVisible: false,
-  //         headerTitle: "",
-  //         headerBackVisible: true,
-  //         headerStyle: { backgroundColor: BackgroundColors.dark },
-  //         headerTintColor: "#fff",
-  //         cardStyleInterpolator: forFade,
-  //       }}
-  //     />
-  //     <LinearGradient
-  //       style={{ ...styles.container }}
-  //       colors={[BackgroundColors.dark, BackgroundColors.bright]}
-  //     >
-  //       <ScrollView
-  //         showsVerticalScrollIndicator={false}
-  //         style={{ paddingTop: 16 }}
-  //       >
-  //         <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
-  //           Loading...
-  //         </Text>
-  //       </ScrollView>
-  //     </LinearGradient>
-  //   </SafeAreaView>;
-  // }
+  if (isLoading) {
+    <SafeAreaView style={{ ...styles.page, flex: 1 }}>
+      <Stack.Screen
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          headerBackVisible: true,
+          headerStyle: { backgroundColor: BackgroundColors.dark },
+          headerTintColor: "#fff",
+          cardStyleInterpolator: forFade,
+        }}
+      />
+      <LinearGradient
+        style={{ ...styles.container }}
+        colors={[BackgroundColors.dark, BackgroundColors.bright]}
+      >
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ paddingTop: 16 }}
+        >
+          <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
+            Loading...
+          </Text>
+        </ScrollView>
+      </LinearGradient>
+    </SafeAreaView>;
+  }
 
   return (
     <SafeAreaView style={{ ...styles.page, flex: 1 }}>
@@ -59,7 +86,7 @@ const Clima = () => {
           style={{ paddingTop: 16 }}
         >
           <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
-            Hoje, 08, Outubro, 2023
+            Hoje, {day}, {month}, {year}
           </Text>
           <Text style={{ ...styles.headingText, marginTop: 12, fontSize: 48 }}>
             Brasil
@@ -76,7 +103,7 @@ const Clima = () => {
               <Text
                 style={{ ...styles.headingText, fontSize: 72, marginTop: 8 }}
               >
-                10°C
+                {data}°C
               </Text>
             </View>
           </View>
