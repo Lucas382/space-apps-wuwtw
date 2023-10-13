@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { BackgroundColors, styles, images, forFade } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
 import useMeteoFetch from "../helpers/useMeteoFetch";
+import useCityName from "../helpers/useCity";
 
 const getCurrentDay = () => {
   const now = new Date();
@@ -34,10 +35,11 @@ const getCurrentDay = () => {
 const Clima = () => {
   const { data, isLoading, refetch } = useMeteoFetch();
   const [year, month, day] = getCurrentDay();
+  const { data: city, isLoading: cityLoading } = useCityName();
 
   console.log("Data:", data);
 
-  if (isLoading) {
+  if (isLoading || cityLoading) {
     <SafeAreaView style={{ ...styles.page, flex: 1 }}>
       <Stack.Screen
         options={{
@@ -94,7 +96,7 @@ const Clima = () => {
           <Text
             style={{ ...styles.secondaryText, fontSize: 18, marginTop: 12 }}
           >
-            Colombo
+            {city}
           </Text>
 
           <View style={{ justifyContent: "center", alignItems: "center" }}>
