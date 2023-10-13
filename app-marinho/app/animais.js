@@ -35,36 +35,78 @@ const Animais = () => {
           <Text style={{ ...styles.headingText }}>Espécies Em Risco</Text>
           <View style={{ ...styles.slideBox }}>
             <Image source={animal.img} style={{ ...styles.image }} />
-            <Text style={{ ...styles.headingText, fontSize: 30 }}>
+            <Text
+              style={{
+                ...styles.headingText,
+                fontSize: 30,
+                textAlign: "justify",
+              }}
+            >
               {animal.nome}
             </Text>
             <Text
-              style={{ ...styles.secondaryText, fontSize: 16, marginTop: 16 }}
+              style={{
+                ...styles.secondaryText,
+                fontSize: 16,
+                marginTop: 16,
+                textAlign: "justify",
+                lineHeight: 20,
+              }}
             >
               {animal.texto}
             </Text>
             <Text
-              style={{ ...styles.secondaryText, fontSize: 16, marginTop: 16 }}
+              style={{
+                ...styles.secondaryText,
+                fontSize: 16,
+                marginTop: 16,
+                textAlign: "justify",
+                lineHeight: 20,
+              }}
             >
               {animal.rota}
             </Text>
             <Text
-              style={{ ...styles.secondaryText, fontSize: 16, marginTop: 16 }}
+              style={{
+                ...styles.secondaryText,
+                fontSize: 16,
+                marginTop: 16,
+                textAlign: "justify",
+                lineHeight: 20,
+              }}
             >
               {animal.habitat}
             </Text>
             <Text
-              style={{ ...styles.secondaryText, fontSize: 16, marginTop: 16 }}
+              style={{
+                ...styles.secondaryText,
+                fontSize: 16,
+                marginTop: 16,
+                textAlign: "justify",
+                lineHeight: 20,
+              }}
             >
               {animal.populacao}
             </Text>
             <Text
-              style={{ ...styles.secondaryText, fontSize: 16, marginTop: 16 }}
+              style={{
+                ...styles.secondaryText,
+                fontSize: 16,
+                marginTop: 16,
+                textAlign: "justify",
+                lineHeight: 20,
+              }}
             >
               {animal.ameacas}
             </Text>
             <Text
-              style={{ ...styles.secondaryText, fontSize: 16, marginTop: 16 }}
+              style={{
+                ...styles.secondaryText,
+                fontSize: 16,
+                marginTop: 16,
+                textAlign: "justify",
+                lineHeight: 20,
+              }}
             >
               Oceano: {animal.oceano}
             </Text>
