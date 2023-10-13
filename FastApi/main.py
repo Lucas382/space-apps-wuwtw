@@ -7,7 +7,7 @@ from starlette.responses import JSONResponse
 import pandas as pd
 
 from FastApi.src.application.api_models.basin_city_api_model import BasinCityModel
-import FastApi.src.domain.models.basin_cities_repository_model as models
+import FastApi.src.domain.models.usa_platform_repository_model as models
 from FastApi.src.infrastructure.data.db_context.sqlite_sql_context import engine, SessionLocal
 
 app = FastAPI()
@@ -35,6 +35,12 @@ def remove_left_spaces(df):
 async def root():
     return RedirectResponse("/docs")
 
+@app.get('/platform_data')
+async def get_platform_data_by_id(platform_id: str, db: db_dependency):
+    result = db.query(models.PlatformRepositoryModel).filter(models.PlatformRepositoryModel.id == platform_id).first()
+    if not result:
+        raise HTTPException(status_code=404, detail='Platform not found! ')
+    return result
 
 @app.get('/controle_semestral/')
 async def get_city_by_name(name_of_city: str, db: db_dependency):
