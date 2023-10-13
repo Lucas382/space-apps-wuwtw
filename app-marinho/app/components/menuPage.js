@@ -36,13 +36,31 @@ const MenuPage = ({ title, routes }) => {
 
         <View style={{ ...styles.grid, marginTop: 48 }}>
           {routes.map((item) => (
-            <TouchableOpacity
-              style={{ ...styles.boxMenu }}
-              onPress={() => handleClick(item.route)}
+            <View
               key={item.route}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                rowGap: 4,
+              }}
             >
-              <Image source={item.img} style={{ ...styles.image }} />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={{ ...styles.boxMenu }}
+                onPress={() => handleClick(item.route)}
+              >
+                <Image source={item.img} style={{ ...styles.image }} />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  ...styles.secondaryText,
+                  fontSize: 12,
+                  textAlign: "center",
+                  maxWidth: 150,
+                }}
+              >
+                {item.name}
+              </Text>
+            </View>
           ))}
         </View>
       </LinearGradient>
