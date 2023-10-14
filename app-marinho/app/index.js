@@ -13,16 +13,11 @@ const Home = () => {
       img: images.temperaturaIcone,
       name: "Previsão do Tempo",
     },
-    { route: "/agua", img: images.aguaIcone, name: "Qualidade da Água" },
+    { route: "/plataformas", img: images.aguaIcone, name: "Qualidade da Água" },
     {
       route: "/preservacao",
       img: images.careIcone,
       name: "Conservação Ambiental",
-    },
-    {
-      route: "/plataformas",
-      img: images.plataformaIcone,
-      name: "Plataformas",
     },
   ];
 

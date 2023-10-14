@@ -29,11 +29,39 @@ const convertLabel = (label) => {
 const Plataformas = () => {
   const router = useRouter();
   const otherLoading = false;
-  const data = true;
-  const { data: platforms } = usePlatforms();
+  const { data: platforms, isLoading: bigLoading } = usePlatforms();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPlatform, setCurrentPlatform] = useState({});
-  console.log("KKKK", currentPlatform);
+
+  if (bigLoading) {
+    return (
+      <SafeAreaView style={{ ...styles.page, flex: 1 }}>
+        <Stack.Screen
+          options={{
+            headerShadowVisible: false,
+            headerTitle: "",
+            headerBackVisible: true,
+            headerStyle: { backgroundColor: BackgroundColors.dark },
+            headerTintColor: "#fff",
+            cardStyleInterpolator: forFade,
+          }}
+        />
+        <LinearGradient
+          style={{ ...styles.container }}
+          colors={[BackgroundColors.dark, BackgroundColors.bright]}
+        >
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ paddingTop: 16 }}
+          >
+            <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
+              Loading...
+            </Text>
+          </ScrollView>
+        </LinearGradient>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={{ ...styles.page, flex: 1 }}>
@@ -58,12 +86,12 @@ const Plataformas = () => {
               width: "100%",
               textAlign: "center",
               flex: 1,
-              paddingHorizontal: 64,
+              paddingHorizontal: 80,
             }}
           >
-            Plataformas Costais
+            Qualidade da Água
           </Text>
-          {data && (
+          {platforms?.at(0) && (
             <MapView
               style={{
                 ...styles.map,
@@ -75,7 +103,7 @@ const Plataformas = () => {
                 longitudeDelta: 80,
               }}
             >
-              {platforms.map((item) => (
+              {platforms?.map((item) => (
                 <Marker
                   key={item["id"]}
                   title={item["name"]}
@@ -115,6 +143,7 @@ const Plataformas = () => {
                       textAlign: "justify",
                       fontSize: 16,
                     }}
+                    key={item.measurement_label}
                   >
                     {convertLabel(item.measurement_label)}: {item.value}{" "}
                     {item.units}
@@ -149,7 +178,7 @@ const Plataformas = () => {
                 </Text>
               </View>
             </View>
-          ) : (
+          ) : !isLoading && currentPlatform?.result ? (
             <View style={{ ...styles.boxWrapper, marginTop: -12 }}>
               <View style={{ ...styles.boxInfo }}>
                 <Text style={{ ...styles.primaryText, fontSize: 30 }}>
@@ -170,6 +199,8 @@ const Plataformas = () => {
                 </Text>
               </View>
             </View>
+          ) : (
+            ""
           )}
         </ScrollView>
       </LinearGradient>
