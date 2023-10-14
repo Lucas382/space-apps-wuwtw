@@ -18,6 +18,8 @@ import nublado from "./imgs/nublado.png";
 import raios from "./imgs/raios.png";
 import saurida_brasiliensis from "./imgs/saurida_brasiliensis.jpg";
 import meandrina_brasiliensis from "./imgs/meandrina_brasiliensis.jpg";
+import plataformaIcone from "./imgs/plataformaIcone.png";
+import verificadoIcone from "./imgs/icone_verificado.png";
 
 const BackgroundColors = {
   bright: "#06A0C4",
@@ -168,6 +170,8 @@ const images = {
   neve: neve,
   nublado: nublado,
   raios: raios,
+  plataformaIcone: plataformaIcone,
+  verificadoIcone: verificadoIcone,
 };
 
 const animais = [

@@ -19,6 +19,11 @@ const Home = () => {
       img: images.careIcone,
       name: "Conservação Ambiental",
     },
+    {
+      route: "/plataformas",
+      img: images.plataformaIcone,
+      name: "Plataformas",
+    },
   ];
 
   return (
