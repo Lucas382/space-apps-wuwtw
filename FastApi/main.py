@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException,Depends
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi.responses import RedirectResponse
@@ -6,11 +7,20 @@ from starlette.responses import JSONResponse
 
 import pandas as pd
 
-from FastApi.src.application.api_models.basin_city_api_model import BasinCityModel
 import FastApi.src.domain.models.usa_platform_repository_model as models
 from FastApi.src.infrastructure.data.db_context.sqlite_sql_context import engine, SessionLocal
 
+
 app = FastAPI()
+
+origins = [
+    'http://localhost:8081',
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+)
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -35,19 +45,19 @@ def remove_left_spaces(df):
 async def root():
     return RedirectResponse("/docs")
 
-@app.get('/platform_data')
-async def get_platform_data_by_id(platform_id: str, db: db_dependency):
-    result = db.query(models.PlatformRepositoryModel).filter(models.PlatformRepositoryModel.id == platform_id).first()
+@app.get('/dados_plataforma/')
+async def get_platform_data_by_id(db: db_dependency):
+    result = db.query(models.PlatformRepositoryModel).all()
     if not result:
         raise HTTPException(status_code=404, detail='Platform not found! ')
     return result
 
-@app.get('/controle_semestral/')
-async def get_city_by_name(name_of_city: str, db: db_dependency):
-    result = db.query(models.BasinCityRepositoryModel).filter(models.BasinCityRepositoryModel.municipio == name_of_city).first()
-    if not result:
-        raise HTTPException(status_code=404, detail='City not found! ')
-    return result
+# @app.get('/controle_semestral/')
+# async def get_city_by_name(name_of_city: str, db: db_dependency):
+#     result = db.query(models.BasinCityRepositoryModel).filter(models.BasinCityRepositoryModel.municipio == name_of_city).first()
+#     if not result:
+#         raise HTTPException(status_code=404, detail='City not found! ')
+#     return result
 
 
 @app.get("/animais_marinhos/")
