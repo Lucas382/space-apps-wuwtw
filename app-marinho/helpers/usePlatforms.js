@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
-import api from './useApi'
+import api from "./useApi";
 
 const usePlatforms = () => {
-
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -19,10 +16,10 @@ const usePlatforms = () => {
 
       const response = await api.get(apiUrl);
 
-
       if (response.status == 200) {
         const data = response.data;
-        console.log(data);
+        // console.log(data);
+        setData(data);
       } else {
         console.error("Erro ao fazer a solicitação à API.");
       }
@@ -31,7 +28,6 @@ const usePlatforms = () => {
     }
 
     setIsLoading(false);
-    setData(data);
   };
 
   useEffect(() => {

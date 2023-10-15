@@ -1,20 +1,11 @@
 import { View, Text, SafeAreaView, Image } from "react-native";
 import { Stack, useRouter, withLayoutContext } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  BackgroundColors,
-  styles,
-  images,
-  forFade,
-  animais,
-} from "../assets/configs";
+import { BackgroundColors, styles, images, forFade } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
-import useCityName from "../helpers/useCity";
-import useBaciaData from "../helpers/useBaciaData";
-import useLocation from "../helpers/useLocation";
 import MapView, { Marker } from "react-native-maps";
 import usePlatforms from "../helpers/usePlatforms";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import fetchQualityOfWater from "../helpers/useQualityOfWater";
 
 const convertLabel = (label) => {
@@ -24,14 +15,15 @@ const convertLabel = (label) => {
   if (label == "H1_pH") return "pH";
   if (label == "H1_TCO2") return "Concentração de CO2";
   if (label == "H1_WaterTemp") return "Temperatura da Água";
+  return -1;
 };
 
 const Plataformas = () => {
-  const router = useRouter();
-  const otherLoading = false;
   const { data: platforms, isLoading: bigLoading } = usePlatforms();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPlatform, setCurrentPlatform] = useState({});
+
+  console.log(platforms);
 
   if (bigLoading) {
     return (
@@ -131,11 +123,7 @@ const Plataformas = () => {
           {!isLoading && currentPlatform?.result && (
             <View style={{ ...styles.slideBox, marginTop: -12 }}>
               {currentPlatform?.result
-                .filter(
-                  (item) =>
-                    item.measurement_label != "H1_OmegaAragSat" &&
-                    item.measurement_label != "H2_CO2"
-                )
+                .filter((item) => convertLabel(item.measurement_label) != -1)
                 .map((item) => (
                   <Text
                     style={{
@@ -155,10 +143,10 @@ const Plataformas = () => {
           {!isLoading &&
           currentPlatform?.result?.find(
             (item) => item.measurement_label == "H1_pH"
-          ).value < 9 &&
+          )?.value < 9 &&
           currentPlatform?.result?.find(
             (item) => item.measurement_label == "H1_pH"
-          ).value > 6 ? (
+          )?.value > 6 ? (
             <View style={{ ...styles.boxWrapper, marginTop: -12 }}>
               <View style={{ ...styles.boxInfo }}>
                 <Text style={{ ...styles.primaryText, fontSize: 30 }}>
