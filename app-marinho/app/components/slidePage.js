@@ -10,8 +10,10 @@ import {
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
 import { A } from "@expo/html-elements";
+import { useTranslation } from "react-i18next";
 
 const SlidePage = ({ title, data }) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [slide, setSlide] = useState(0);
@@ -71,7 +73,7 @@ const SlidePage = ({ title, data }) => {
           {slide == data.texts.length - 1 && (
             <View style={{ padding: 12 }}>
               <Text style={{ ...styles.secondaryText, fontSize: 16 }}>
-                Mais informações em:{" "}
+                {t("more-info")}{" "}
                 <A
                   href={data.source}
                   style={{ textDecorationLine: "underline" }}

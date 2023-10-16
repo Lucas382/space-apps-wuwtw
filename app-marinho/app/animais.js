@@ -9,8 +9,10 @@ import {
   animais,
 } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
+import { useTranslation } from "react-i18next";
 
 const Animais = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const animal = animais[0];
@@ -32,7 +34,7 @@ const Animais = () => {
         colors={[BackgroundColors.dark, BackgroundColors.bright]}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{ ...styles.headingText }}>Espécies Em Risco</Text>
+          <Text style={{ ...styles.headingText }}>{t("animals-title")}</Text>
           <View style={{ ...styles.slideBox }}>
             <Image source={animal.img} style={{ ...styles.image }} />
             <Text

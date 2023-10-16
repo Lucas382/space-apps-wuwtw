@@ -1,29 +1,29 @@
 import { useRouter } from "expo-router";
 import { images } from "../assets/configs";
 import MenuPage from "./components/menuPage";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const routes = [
-    { route: "/mapa", img: images.mapaIcone, name: "Localizador" },
-    { route: "/animais", img: images.orcaIcone, name: "Animais Ameaçados" },
+    { route: "/mapa", img: images.mapaIcone, name: t("map-title") },
+    { route: "/animais", img: images.orcaIcone, name: t("animals-title") },
     {
       route: "/clima",
       img: images.temperaturaIcone,
-      name: "Previsão do Tempo",
+      name: t("clima-title"),
     },
-    { route: "/plataformas", img: images.aguaIcone, name: "Qualidade da Água" },
+    { route: "/plataformas", img: images.aguaIcone, name: t("water-title") },
     {
       route: "/preservacao",
       img: images.careIcone,
-      name: "Conservação Ambiental",
+      name: t("preservacao"),
     },
   ];
 
-  return (
-    <MenuPage title="Selecione o que gostaria de visualizar" routes={routes} />
-  );
+  return <MenuPage title={t("title")} routes={routes} />;
 };
 
 export default Home;

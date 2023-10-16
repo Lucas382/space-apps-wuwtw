@@ -1,31 +1,33 @@
+import { useTranslation } from "react-i18next";
 import { images } from "../assets/configs";
 import MenuPage from "./components/menuPage";
 
 const Preservacao = () => {
+  const { t } = useTranslation();
   const routes = [
     {
       route: "/estabilizacao-climatica",
       img: images.terra_icone,
-      name: "Estabilização Climática",
+      name: t("estabilizacao-clima"),
     },
     {
       route: "/protecao-oceanica",
       img: images.mar_icone,
-      name: "Dupla Proteção Oceânica",
+      name: t("protecao-oceanica"),
     },
     {
       route: "/economia",
       img: images.moeda_icone,
-      name: "Expandir Economias Positivas para a Natureza",
+      name: t("economia"),
     },
     {
       route: "/vida-marinha",
       img: images.peixe_icone,
-      name: "Proteção à Vida Marinha",
+      name: t("vida-marinha"),
     },
   ];
 
-  return <MenuPage title={"Preservação Ambiental"} routes={routes} />;
+  return <MenuPage title={t("preservacao")} routes={routes} />;
 };
 
 export default Preservacao;

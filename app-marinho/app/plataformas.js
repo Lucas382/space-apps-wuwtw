@@ -5,25 +5,27 @@ import { BackgroundColors, styles, images, forFade } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
 import MapView, { Marker } from "react-native-maps";
 import usePlatforms from "../helpers/usePlatforms";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import fetchQualityOfWater from "../helpers/useQualityOfWater";
-
-const convertLabel = (label) => {
-  if (label == "H1_AlkalinityTot") return "Alcalinidade Total";
-  if (label == "H1_Salinity") return "Salinidade";
-  if (label == "H1_OxygenSat") return "Saturação de Oxigênio";
-  if (label == "H1_pH") return "pH";
-  if (label == "H1_TCO2") return "Concentração de CO2";
-  if (label == "H1_WaterTemp") return "Temperatura da Água";
-  return -1;
-};
+import { useTranslation } from "react-i18next";
 
 const Plataformas = () => {
+  const { t } = useTranslation();
   const { data: platforms, isLoading: bigLoading } = usePlatforms();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPlatform, setCurrentPlatform] = useState({});
 
   console.log(platforms);
+
+  const convertLabel = (label) => {
+    if (label == "H1_AlkalinityTot") return t("label-alc");
+    if (label == "H1_Salinity") return t("label-sal");
+    if (label == "H1_OxygenSat") return t("label-satoxi");
+    if (label == "H1_pH") return t("label-ph");
+    if (label == "H1_TCO2") return t("label-conco2");
+    if (label == "H1_WaterTemp") return t("label-watertemp");
+    return -1;
+  };
 
   if (bigLoading) {
     return (
@@ -78,10 +80,10 @@ const Plataformas = () => {
               width: "100%",
               textAlign: "center",
               flex: 1,
-              paddingHorizontal: 80,
+              paddingHorizontal: 100,
             }}
           >
-            Qualidade da Água
+            {t("water-title")}
           </Text>
           {platforms?.at(0) && (
             <MapView
@@ -150,7 +152,7 @@ const Plataformas = () => {
             <View style={{ ...styles.boxWrapper, marginTop: -12 }}>
               <View style={{ ...styles.boxInfo }}>
                 <Text style={{ ...styles.primaryText, fontSize: 30 }}>
-                  Nível de Contaminação
+                  {t("water-cont")}
                 </Text>
                 <View style={{ ...styles.rowImage }}>
                   <Image
@@ -158,11 +160,11 @@ const Plataformas = () => {
                     style={{ ...styles.icon }}
                   />
                   <Text style={{ ...styles.primaryText, fontSize: 22 }}>
-                    Normal!
+                    {t("water-level1")}
                   </Text>
                 </View>
                 <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
-                  Substâncias detectadas dentro do limite de segurança
+                  {t("water-subs1")}
                 </Text>
               </View>
             </View>
@@ -170,7 +172,7 @@ const Plataformas = () => {
             <View style={{ ...styles.boxWrapper, marginTop: -12 }}>
               <View style={{ ...styles.boxInfo }}>
                 <Text style={{ ...styles.primaryText, fontSize: 30 }}>
-                  Nível de Contaminação
+                  {t("water-cont")}
                 </Text>
                 <View style={{ ...styles.rowImage }}>
                   <Image
@@ -178,12 +180,11 @@ const Plataformas = () => {
                     style={{ ...styles.icon }}
                   />
                   <Text style={{ ...styles.primaryText, fontSize: 22 }}>
-                    Muito Alto!
+                    {t("water-level2")}
                   </Text>
                 </View>
                 <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
-                  Substâncias com os maiores riscos de gerar doenças crônicas,
-                  como câncer
+                  {t("water-subs2")}
                 </Text>
               </View>
             </View>

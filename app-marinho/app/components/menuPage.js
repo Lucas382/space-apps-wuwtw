@@ -32,7 +32,15 @@ const MenuPage = ({ title, routes }) => {
         style={{ ...styles.container }}
         colors={[BackgroundColors.dark, BackgroundColors.bright]}
       >
-        <Text style={{ ...styles.headingText, marginTop: 24 }}>{title}</Text>
+        <Text
+          style={{
+            ...styles.headingText,
+            marginTop: 24,
+            paddingHorizontal: 16,
+          }}
+        >
+          {title}
+        </Text>
 
         <View style={{ ...styles.grid, marginTop: 48 }}>
           {routes.map((item) => (

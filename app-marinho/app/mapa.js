@@ -13,6 +13,7 @@ import useCityName from "../helpers/useCity";
 import useBaciaData from "../helpers/useBaciaData";
 import useLocation from "../helpers/useLocation";
 import MapView, { Marker } from "react-native-maps";
+import { useTranslation } from "react-i18next";
 
 const Mapa = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const Mapa = () => {
   const isLoading = false;
   const otherLoading = false;
   const location = { latitude: -25.33167, longitude: -49.18417 };
+  const { t } = useTranslation();
 
   if (isLoading || otherLoading) {
     return (
@@ -125,8 +127,7 @@ const Mapa = () => {
                     marginTop: 12,
                   }}
                 >
-                  Os seus principais afluentes são:{" "}
-                  {item["principais Afluentes"]}
+                  {t("map-af")} {item["principais Afluentes"]}
                 </Text>
                 <Text
                   style={{
@@ -135,8 +136,7 @@ const Mapa = () => {
                     marginTop: 12,
                   }}
                 >
-                  As suas principais sub-bacias são:{" "}
-                  {item["sub-bacias hidrográficas"]}
+                  {t("map-sub")} {item["sub-bacias hidrográficas"]}
                 </Text>
                 {item["suprabacia(s)"] && (
                   <Text
@@ -146,7 +146,7 @@ const Mapa = () => {
                       marginTop: 12,
                     }}
                   >
-                    Suprabacias: {item["suprabacia(s)"]}
+                    {t("map-supra")} {item["suprabacia(s)"]}
                   </Text>
                 )}
               </View>

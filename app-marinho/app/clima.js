@@ -5,23 +5,25 @@ import { BackgroundColors, styles, images, forFade } from "../assets/configs";
 import { ScrollView } from "react-native-gesture-handler";
 import useMeteoFetch from "../helpers/useMeteoFetch";
 import useCityName from "../helpers/useCity";
+import { useTranslation } from "react-i18next";
 
 const getCurrentDay = () => {
+  const { t } = useTranslation();
   const now = new Date();
 
   const monthNames = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
+    t("Janeiro"),
+    t("Fevereiro"),
+    t("Março"),
+    t("Abril"),
+    t("Maio"),
+    t("Junho"),
+    t("Julho"),
+    t("Agosto"),
+    t("Setembro"),
+    t("Outubro"),
+    t("Novembro"),
+    t("Dezembro"),
   ];
 
   // Get the current date in the desired format
@@ -33,6 +35,7 @@ const getCurrentDay = () => {
 };
 
 const Clima = () => {
+  const { t } = useTranslation();
   const { data, isLoading, refetch } = useMeteoFetch();
   const [year, month, day] = getCurrentDay();
   const { data: city, isLoading: cityLoading } = useCityName();
@@ -90,7 +93,7 @@ const Clima = () => {
           style={{ paddingTop: 16 }}
         >
           <Text style={{ ...styles.secondaryText, fontSize: 18 }}>
-            Hoje, {day}, {month}, {year}
+            {t("today")}, {day}, {month}, {year}
           </Text>
           <Text style={{ ...styles.headingText, marginTop: 12, fontSize: 48 }}>
             Brasil
