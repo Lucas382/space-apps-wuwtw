@@ -1,9 +1,10 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from FastApi.src.infrastructure.data.db_context.sqlite_sql_context import Base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 
+Base = declarative_base()
 
 class PlatformRepositoryModel(Base):
-    __tablename__ = 'platform_data'
+    __tablename__ = 'ipacoa_platform'
 
     index = Column(Integer, primary_key=True, index=True)
     id = Column(String, index=True)
@@ -11,3 +12,4 @@ class PlatformRepositoryModel(Base):
     lat = Column(String, index=True)
     lon = Column(String, index=True)
     type = Column(String, index=True)
+

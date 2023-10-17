@@ -7,7 +7,8 @@ from starlette.responses import JSONResponse
 
 import pandas as pd
 
-import FastApi.src.domain.models.usa_platform_repository_model as models
+import FastApi.src.domain.models.usa_platform_repository_model as platformModels
+import FastApi.src.domain.models.br_basin_repository_model as basinModels
 from FastApi.src.infrastructure.data.db_context.sqlite_sql_context import engine, SessionLocal
 
 
@@ -22,7 +23,8 @@ app.add_middleware(
     allow_origins=origins,
 )
 
-models.Base.metadata.create_all(bind=engine)
+platformModels.Base.metadata.create_all(bind=engine)
+basinModels.Base.metadata.create_all(bind=engine)
 
 
 def get_db():
@@ -45,19 +47,13 @@ def remove_left_spaces(df):
 async def root():
     return RedirectResponse("/docs")
 
+
 @app.get('/dados_plataforma/')
 async def get_platform_data_by_id(db: db_dependency):
-    result = db.query(models.PlatformRepositoryModel).all()
+    result = db.query(platformModels.PlatformRepositoryModel).all()
     if not result:
         raise HTTPException(status_code=404, detail='Platform not found! ')
     return result
-
-# @app.get('/controle_semestral/')
-# async def get_city_by_name(name_of_city: str, db: db_dependency):
-#     result = db.query(models.BasinCityRepositoryModel).filter(models.BasinCityRepositoryModel.municipio == name_of_city).first()
-#     if not result:
-#         raise HTTPException(status_code=404, detail='City not found! ')
-#     return result
 
 
 @app.get("/animais_marinhos/")
@@ -75,46 +71,25 @@ async def get_sea_animals():
 
 
 @app.get("/municipios/")
-async def get_basin_data_from_city_name(name_of_city: str):
-    file_path_city = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4_municipios.xlsx'
-    file_path_river_basin = 'FastApi/src/infrastructure/data/repositories/bacias_nivel_4.xlsx'
+async def get_basin_data_from_city_name(name_of_city: str, db: db_dependency):
+    result = []
 
-    df_city = pd.read_excel(file_path_city)
-    df_city = df_city.fillna('')
+    for level in range(2, 7):
+        city_model = getattr(basinModels, f"Basin{level}CityRepositoryModel")
+        city_datas = db.query(city_model).filter(city_model.municipios.like(f"%{name_of_city},%")).all()
 
-    otto_code = df_city['Codificação Otto Pfafstetter ']
-    city_name = df_city['Municípios']
+        for city_data in city_datas:
+            codificacao_otto_pfafstetter_ = city_data.codificacao_otto_pfafstetter_
 
-    list_cod_otto = []
-    for i, cities_string in enumerate(city_name):
-        for city in cities_string.split(','):
-            if name_of_city in city:
-                list_cod_otto.append(int(otto_code[i]))
+            basin_model = getattr(basinModels, f"Basin{level}RepositoryModel")
+            basin_data = db.query(basin_model).filter(basin_model.codigo_otto == codificacao_otto_pfafstetter_).all()
 
-    df_river_basin = pd.read_excel(file_path_river_basin)
-    df_river_basin = df_river_basin.fillna('')
+            if basin_data:
+                result.extend(basin_data)
 
-    fk_otto_code = df_river_basin['código Otto']
-    watersheds_name = df_river_basin['nome da bacia hidrográfica']
-    main_course = df_river_basin['nome do curso principal']
-    main_tributary_rivers = df_river_basin['principais afluentes']
-    sub_watersheds = df_river_basin['sub-bacias hidrográficas']
-    suprabasins = df_river_basin['suprabacia(s)']
+    if not result:
+        raise HTTPException(status_code=404, detail='Nenhum dado correspondente encontrado!')
 
-    result_objects = []
-
-    for i, cod in enumerate(fk_otto_code):
-        if cod and int(cod) in list_cod_otto:
-            print(int(cod), list_cod_otto)
-            result_objects.append({
-                'código Otto': int(cod),
-                'nome da bacia hidrográfica': watersheds_name[i],
-                'nome do curso principal': main_course[i],
-                'principais afluentes': main_tributary_rivers[i],
-                'sub-bacias hidrográficas': sub_watersheds[i],
-                'suprabacia(s)': suprabasins[i]
-            })
-
-    return result_objects
+    return result
 
 
